@@ -1,23 +1,14 @@
 [
   {
-    "id": "1",
-    "title": "Primer Post",
-    "content": "Contenido del primer post"
+      "id": "1",
+      "title": "Primer Post",
+      "content": "Contenido del primer post",
+      "category": "Materia"
   },
   {
-    "id": "2",
-    "title": "Probando el Edit - Título actualizado",
-    "content": "Contenido actualizado de la publicación.",
-    "comments": [
-      {
-        "user": "admin",
-        "text": "Este es mi comentario en la publicación."
-      }
-    ]
-  },
-  {
-    "id": "3",
-    "title": "Probando el Edit - Título actualizado del 3er post",
-    "content": "Contenido actualizado de la publicación."
+      "id": "2",
+      "title": "Segundo Post",
+      "content": "Contenido del segundo post",
+      "category": "Exámenes"
   }
 ]
