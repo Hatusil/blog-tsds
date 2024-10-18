@@ -1,14 +1,14 @@
 [
   {
-      "id": "1",
-      "title": "Primer Post",
-      "content": "Contenido del primer post",
-      "category": "Materia"
-  },
-  {
-      "id": "2",
-      "title": "Segundo Post",
-      "content": "Contenido del segundo post",
-      "category": "Exámenes"
+    "title": "Segundo Post editado",
+    "content": "Contenido del segundo post editado",
+    "category": "Materia",
+    "id": "3347c435-6264-41ad-9069-ff02735bcbee",
+    "comments": [
+      {
+        "user": "admin2",
+        "text": "Este es mi comentario en la primer publicación."
+      }
+    ]
   }
 ]

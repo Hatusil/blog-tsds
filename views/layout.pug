@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    header
+      h1 Mi Blog Personal
+      nav
+        ul
+          li: a(href='/') Inicio
+          li: a(href='/posts') Publicaciones
+          li: a(href='/auth/login') Iniciar Sesión
+          li: a(href='/auth/register') Registrarse
+    if success_msg
+      div.alert.alert-success
+        | #{success_msg}
+    if error_msg
+      div.alert.alert-danger
+        | #{error_msg}
+    block content
+    footer
+      p © 2024 Blog TSDS

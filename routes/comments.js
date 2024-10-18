@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
+var fs = require('fs').promises;
 var path = require('path');
 const isAuthenticated = require('../middleware/auth');
 
 // Ruta para agregar un comentario a una publicación
-router.post('/add/:postId', isAuthenticated, function(req, res) {
+router.post('/add/:postId', isAuthenticated, async function(req, res) {
     const postId = req.params.postId;
     const newComment = req.body;
 
@@ -14,12 +14,13 @@ router.post('/add/:postId', isAuthenticated, function(req, res) {
         return res.status(400).send('Faltan campos en el comentario (user, text)');
     }
 
-    fs.readFile(path.join(__dirname, '../data/posts.json'), (err, data) => {
-        if (err) throw err;
+    try {
+        // Leer el archivo JSON
+        const data = await fs.readFile(path.join(__dirname, '../data/posts.json'), 'utf8');
         let posts = JSON.parse(data);
 
         // Encontrar la publicación por su ID
-        const post = posts.find(post => post.id == postId);
+        const post = posts.find(post => post.id === postId);
 
         if (post) {
             // Si el array de comentarios no existe, inicializarlo
@@ -31,18 +32,15 @@ router.post('/add/:postId', isAuthenticated, function(req, res) {
             post.comments.push(newComment);
 
             // Guardar el cambio en el archivo JSON
-            fs.writeFile(path.join(__dirname, '../data/posts.json'), JSON.stringify(posts, null, 2), (err) => {
-                if (err) throw err;
-                res.status(201).send('Comentario agregado correctamente');
-            });
+            await fs.writeFile(path.join(__dirname, '../data/posts.json'), JSON.stringify(posts, null, 2));
+            return res.status(201).send('Comentario agregado correctamente');
         } else {
-            res.status(404).send('Publicación no encontrada');
+            return res.status(404).send('Publicación no encontrada');
         }
-    });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('Error al procesar la solicitud');
+    }
 });
-
-module.exports = router;
-
-
 
 module.exports = router;
