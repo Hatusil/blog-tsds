@@ -1,9 +1,15 @@
 const express = require('express');
+const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const router = express.Router();
 
-const users = []; // Esto debería ser una base de datos en producción
+const users = []; // Base de datos en producción
+
+
+// Ruta GET para mostrar el formulario de registro
+router.get('/register', (req, res) => {
+    res.render('register');  // Renderiza la vista register.pug
+});
 
 // Ruta de registro
 router.post('/register', async (req, res) => {
@@ -25,6 +31,12 @@ router.post('/register', async (req, res) => {
     users.push({ username, password: hashedPassword });
 
     res.status(201).send('Usuario registrado con éxito');
+});
+
+
+// Ruta GET para mostrar el formulario de inicio de sesión
+router.get('/login', (req, res) => {
+    res.render('login');  // Renderiza la vista login.pug
 });
 
 // Ruta de inicio de sesión

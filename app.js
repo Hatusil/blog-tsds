@@ -1,18 +1,38 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
+const app = express();
 
-var app = express();
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var postsRouter = require('./routes/posts');
-var commentsRouter = require('./routes/comments');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
+const commentsRouter = require('./routes/comments');
 
 const authRoutes = require('./routes/auth');
+
+app.use('/', indexRouter);  // Para la página de inicio
+app.use('/posts', postsRouter);  // Para las publicaciones
+app.use('/comments', commentsRouter);  // Para los comentarios
+app.use('/auth', authRoutes);  // Para autenticación
+app.use('/users', usersRouter);  // Para usuarios
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Listar todas las rutas registradas
+app._router.stack.forEach(function(r) {
+  if (r.route && r.route.path) {
+    console.log('Ruta activa:', r.route.path);
+  } else if (r.name === 'router' && r.handle.stack) {
+    r.handle.stack.forEach(function(handler) {
+      if (handler.route && handler.route.path) {
+        console.log('Ruta activa (router):', handler.route.path);
+      }
+    });
+  }
+});
 
 // Configuración del motor de vistas
 app.set('views', path.join(__dirname, 'views'));
@@ -24,14 +44,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Configura las rutas
-app.use('/posts', postsRouter);
-app.use('/comments', commentsRouter);
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-// Agrega las rutas de autenticación
-app.use('/auth', authRoutes);
 
 // Manejo de errores 404
 app.use(function(req, res, next) {

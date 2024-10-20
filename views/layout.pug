@@ -2,7 +2,9 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="stylesheet", href="/stylesheets/style.css")
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
   body
     header
       h1 Mi Blog Personal
@@ -13,11 +15,10 @@ html
           li: a(href='/auth/login') Iniciar Sesión
           li: a(href='/auth/register') Registrarse
     if success_msg
-      div.alert.alert-success
-        | #{success_msg}
+      div.alert.alert-success #{success_msg}
     if error_msg
-      div.alert.alert-danger
-        | #{error_msg}
+      div.alert.alert-danger #{error_msg}
     block content
     footer
       p © 2024 Blog TSDS
+

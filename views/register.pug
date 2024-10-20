@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1 Registro
+    form(action="/auth/register", method="POST")
+        div.form-group
+        label(for="username") Nombre de Usuario:
+        input#username(type="text" name="username" required)
+
+        div.form-group
+        label(for="password") Contraseña:
+        input#password(type="password" name="password" required)
+
+        button.btn.btn-primary(type="submit") Registrarse

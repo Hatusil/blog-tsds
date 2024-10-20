@@ -3,7 +3,8 @@ extends layout
 block content
     h1 Publicaciones
     each post in posts
-        article
+        article.post-item
         h2= post.title
+        p Categoria: #{post.category}
         p= post.content
         a(href=`/posts/${post.id}`) Ver más

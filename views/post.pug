@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1= post.title
+    p Categoria: #{post.category}
+    p= post.content
+    h3 Comentarios
+    if post.comments.length
+        each comment in post.comments
+        div.comment
+            p Usuario: #{comment.user}
+            p= comment.text
+    else
+        p No hay comentarios.
+    
+    form(action=`/comments/add/${post.id}`, method="POST")
+        label(for="text") Escribe un comentario:
+        textarea#text(name="text" required)
+        button(type="submit") Enviar
