@@ -15,6 +15,8 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
+    console.log(req.body);
+    
     // Validaciones
     if (!username || !password) {
         return res.status(400).send('El nombre de usuario y la contraseña son obligatorios');

@@ -6,23 +6,12 @@ const { v4: uuidv4 } = require('uuid');
 const isAuthenticated = require('../middleware/auth');
 const filePath = path.join(__dirname, '../data/posts.json');
 
-// // Ruta para obtener todas las publicaciones
-// router.get('/', async (req, res) => {
-//     try {
-//         const posts = await Post.find();
-//         res.render('posts', { posts });
-//     } catch (err) {
-//         res.status(500).send('Error al cargar las publicaciones');
-//     }
-// });
 // Ruta para obtener todas las publicaciones
 router.get('/', async (req, res) => {
     try {
-        // Aquí debes tener la lógica para obtener las publicaciones desde JSON o base de datos
         const data = await fs.readFile(path.join(__dirname, '../data/posts.json'), 'utf8');
         const posts = JSON.parse(data);
 
-        // Renderizar la vista 'posts.pug' con las publicaciones
         res.render('posts', { posts });
     } catch (err) {
         console.error('Error al cargar las publicaciones:', err);
@@ -32,7 +21,7 @@ router.get('/', async (req, res) => {
 
 
 router.get('/create', (req, res) => {
-    res.render('post');  // Suponiendo que tengas createPost.pug
+    res.render('post');  // Esto hay que ver...
 });
 
 // Ruta para crear una nueva publicación
