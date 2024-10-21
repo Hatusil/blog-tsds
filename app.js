@@ -10,7 +10,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
-
+const authMiddleware = require('./middleware/auth');
 const authRoutes = require('./routes/auth');
 
 app.use('/', indexRouter);  // Para la página de inicio
@@ -19,7 +19,7 @@ app.use('/comments', commentsRouter);  // Para los comentarios
 app.use('/auth', authRoutes);  // Para autenticación
 app.use('/users', usersRouter);  // Para usuarios
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(authMiddleware);
 
 // Listar todas las rutas registradas
 app._router.stack.forEach(function(r) {

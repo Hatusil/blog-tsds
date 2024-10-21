@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
     const { username, password } = req.body;
 
     console.log(req.body);
-    
+
     // Validaciones
     if (!username || !password) {
         return res.status(400).send('El nombre de usuario y la contraseña son obligatorios');
@@ -34,6 +34,7 @@ router.post('/register', async (req, res) => {
 
     res.status(201).send('Usuario registrado con éxito');
 });
+
 
 
 // Ruta GET para mostrar el formulario de inicio de sesión

@@ -19,9 +19,29 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Ruta para los post según su id
+router.get('/:id', async (req, res) => {
+    const postId = req.params.id;
+    
+    try {
+        const data = await fs.readFile(path.join(__dirname, '../data/posts.json'), 'utf8');
+        const posts = JSON.parse(data);
+        
+        const post = posts.find(p => p.id === postId);
+        if (!post) {
+            return res.status(404).send('Publicación no encontrada');
+        }
+        
+        res.render('post', { post });
+    } catch (err) {
+        res.status(500).send('Error al cargar la publicación');
+    }
+});
 
+
+// ------------------------------------------------------//
 router.get('/create', (req, res) => {
-    res.render('post');  // Esto hay que ver...
+    res.render('post');  // ESTO ESTÁ PENDIENTE DE VER...
 });
 
 // Ruta para crear una nueva publicación
